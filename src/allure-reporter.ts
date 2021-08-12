@@ -272,7 +272,7 @@ export default class AllureReporter {
 
 		let status = Status.BROKEN;
 		let message = error.name;
-		let trace = error.message;
+		let trace = error.stack || error.message;
 
 		if (error.matcherResult) {
 			status = Status.FAILED;
@@ -281,7 +281,7 @@ export default class AllureReporter {
 			const [line1, line2, ...restOfMessage] = matcherMessage.split('\n');
 
 			message = [line1, line2].join('\n');
-			trace = restOfMessage.join('\n');
+			trace = error.stack || restOfMessage.join('\n');
 		}
 
 		if (!trace) {
