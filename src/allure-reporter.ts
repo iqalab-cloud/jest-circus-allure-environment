@@ -149,7 +149,7 @@ export default class AllureReporter {
 		}
 	}
 
-	startTestCase(test: jest.Circus.TestEntry, state: jest.Circus.State, testPath: string): void {
+	startTestCase(test: jest.Circus.TestEntry, state: jest.Circus.State, testPath: string, withCodeAsDescription: boolean = true): void {
 		if (this.currentSuite === null) {
 			throw new Error('startTestCase called while no suite is running');
 		}
@@ -161,7 +161,7 @@ export default class AllureReporter {
 			.digest('hex');
 		currentTest.stage = Stage.RUNNING;
 
-		if (test.fn) {
+		if (withCodeAsDescription && test.fn) {
 			const serializedTestCode = test.fn.toString();
 			const {code, comments, pragmas} = this.extractCodeDetails(serializedTestCode);
 
@@ -170,7 +170,7 @@ export default class AllureReporter {
 			currentTest.description = `${comments}\n### Test\n\`\`\`typescript\n${code}\n\`\`\`\n`;
 		}
 
-		if (!test.fn) {
+		if (withCodeAsDescription && !test.fn) {
 			currentTest.description = '### Test\nCode is not available.\n';
 		}
 
