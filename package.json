@@ -1,5 +1,5 @@
 {
-  "name": "jest-circus-allure-environment",
+  "name": "@iqalab/jest-circus-allure-environment",
   "version": "1.1.1",
   "repository": "https://github.com/ryparker/jest-circus-allure-environment.git",
   "author": "Ryan Parker <ryan.parker3@outlook.com>",
